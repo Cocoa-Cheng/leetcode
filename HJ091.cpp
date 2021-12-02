@@ -23,7 +23,6 @@ int main(){
     while(cin>>n>>m){
         int dp[n+1][m+1];
         //将n×m个方格转化为(n+1)×(m+1)个点
-        dp[0][0]=1;
         for(int i=0; i<n+1; i++)
         {
             for(int j=0; j<m+1; j++)
@@ -34,10 +33,16 @@ int main(){
                     continue;
                 }    
                 dp[i][j]=dp[i-1][j]+dp[i][j-1];
-                cout<<i<<" "<<j<<" "<<dp[i][j]<<endl;
             }
         }
-        cout<<dp[n+1][m+1]<<endl;
+        cout<<dp[n][m]<<endl;
     }
-
+    return 0;
 }
+/*
+newcoder测试结果：
+运行时间：3ms
+超过51.92% 用C++提交的代码
+占用内存：524KB
+超过33.60%用C++提交的代码
+*/
