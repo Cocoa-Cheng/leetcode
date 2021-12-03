@@ -44,33 +44,39 @@ void DoPhase(){
     list *newFirstNode = new list;
     newFirstNode->next=NULL;
     list *minNode=firstList,*nextNode;
-    while(num!=0)
+    
+    while(num)
     {
+        
         curList=firstList->next;
         minNode=firstList;
         while(curList!=NULL)
         {
+
             if(curList!=minNode&&curList->index==minNode->index)
             {
                 list *needDeleteNode=curList;
                 minNode->value+=curList->value;
                 curList->prev->next=curList->next;
-                curList->next->prev=curList->prev;
+                if(curList->next!=NULL)
+                    curList->next->prev=curList->prev;
                 curList=curList->next;
-                delete needDeleteNode;
                 num--;
+                delete needDeleteNode;
+                
                 continue;
             }
             else if(curList!=minNode&&curList->index<minNode->index)
                 minNode=curList;
-            cout<<minNode->index;
             curList=curList->next;
+
         }
         if(newFirstNode->next==NULL)
         {
             newFirstNode->next=minNode;
             minNode->prev->next=minNode->next;
-            minNode->next->prev=minNode->prev;
+            if(minNode->next!=NULL)
+                minNode->next->prev=minNode->prev;
             minNode->prev=newFirstNode;
             nextNode=minNode;
             num--;
@@ -79,22 +85,15 @@ void DoPhase(){
         {
             nextNode->next=minNode;
             minNode->prev->next=minNode->next;
-            minNode->next->prev=minNode->prev;
+            if(minNode->next!=NULL)
+                minNode->next->prev=minNode->prev;
             minNode->prev=nextNode;
             nextNode=minNode;
             num--;
-
-            cout<<nextNode->index<<num<<endl;
         }
     }
     delete firstList;
-    list *showNode=newFirstNode->next;
-    while(0)
-    {
-        cout<<showNode->index<<" "<<showNode->value<<endl;   
-        showNode=showNode->next;
-    }
-    while(0)
+    while(newFirstNode->next!=NULL)
     {
         list *showNode=newFirstNode->next;
         cout<<showNode->index<<" "<<showNode->value<<endl;
